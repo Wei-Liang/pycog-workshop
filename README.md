@@ -70,7 +70,7 @@ There are several ways you could use pycog:
 cd examples # assume you are in pycog directory
 python do.py models/multisensory.py train # this is actually one of Dr.Matt Kaufman's papers!
 ```
-3. (Recommended) Use a jupyter notebook, as shown in pycog-workshop/tutorial/pycog-workshop.ipynb, will walk through in the workshop
+3. (Recommended) Use a jupyter notebook, as shown in pycog-workshop/tutorial/pycog-workshop.ipynb, we will walk through it in the workshop
 ```bash
 cd pycog-workshop/tutorial
 jupyter notebook pycog-workshop.ipynb
