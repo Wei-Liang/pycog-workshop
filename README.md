@@ -1,6 +1,6 @@
 # Theoretical Neuroscience Final Project Guidelines
 
-These instructions will get you up and running on your local machine for RNN. 
+These instructions will get you up and running on your local machine for the final project using pycog. 
 
 ### Prerequisites
 
@@ -21,7 +21,10 @@ in terminal(or cmd.exe in Windows):
 conda update conda
 conda config --add channels intel
 conda create -n RNN intelpython2_core python=2 # we use intel's distribution of python for better performance
-(conda create -n RNN python=2) # if for some reason previous line failed, use this
+# (Optional) if for some reason previous line failed or you encounter other errors downstream, use these
+conda remove -n RNN --all
+conda config --remove channels intel
+conda create -n RNN python=2
 ```
 2. Install various prerequisites for theano, w.r.t http://deeplearning.net/software/theano/install.html
 ``` bash 
@@ -30,19 +33,25 @@ conda install numpy scipy mkl nose sphinx pydot-ng
 (conda install numpy scipy mkl-service libpython m2w64-toolchain nose sphinx pydot-ng) # for windows
 conda install jupyter cython networkx matplotlib
 conda install theano
+
 ```
+
 3. Install [pycog](https://github.com/frsong/pycog.git) from source code
 ``` bash
 git clone https://github.com/frsong/pycog.git
 cd pycog
 pip install -e .
 ```
-download a sample file from the authors: https://ndownloader.figshare.com/files/6654750 and rename it to S1Code.py
+(Optional). If you have a discrete GPU, like Nvidia GTX 750 or newer models, you could get better performance, follow the GPU setup guide in theano website, you'll also need to modify pycog source code a little bit, email me if you want to try
 
-4. Test installations
+4. Test installations by running the S1Code.py file in this repo
 ```bash
+cd ..
+git clone https://github.com/Hanyu-Li/pycog-workshop.git
+cd pycog-workshop/tutorial
 python S1Code.py
 ```
+you should see training progresses
 
 ### Frequently encountered problems:
 
@@ -50,12 +59,20 @@ python S1Code.py
 
 
 ### How pycog works
-Don't panic if you are not that familiar with python, you won't need to read through the bulk of their source code or start from scratch. However, You do need to understand how to build a "trial" code snippet that is compatible with the framework. :grin:
+Don't worry if you are not that familiar with python, you won't need to read through the bulk of their source code or start from scratch. However, You do need to understand how to build a "trial" code snippet that is compatible with the framework.
 
-S1Code.py is an all-in-one demo file, while their recommended usage is shown in examples directory.
+There are several ways you could use pycog:
+1. Like S1Code.py, an all-in-one .py file that defines a trial, its training configurations and running script, 
+
+2. Define an experiment using files like in examples/models, and use their do.py script to interact with it.
 ```bash
 (conda activate RNN) # assumed this is active
-cd examples
+cd examples # assume you are in pycog directory
 python do.py models/multisensory.py train # this is actually one of Dr.Matt Kaufman's papers!
 ```
-You will need to build something like the "generate_trial" function in these files 
+3. (Recommended) Use a jupyter notebook, as shown in pycog-workshop/tutorial/pycog-workshop.ipynb, will walk through in the workshop
+```bash
+cd pycog-workshop/tutorial
+jupyter notebook pycog-workshop.ipynb
+```
+You will need to build something like one of those "generate_trial" functions to define a behavioral task and write analytical functions for the simulation results.
